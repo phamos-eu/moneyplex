@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include moneyplex *.css
+recursive-include moneyplex *.csv
+recursive-include moneyplex *.html
+recursive-include moneyplex *.ico
+recursive-include moneyplex *.js
+recursive-include moneyplex *.json
+recursive-include moneyplex *.md
+recursive-include moneyplex *.png
+recursive-include moneyplex *.py
+recursive-include moneyplex *.svg
+recursive-include moneyplex *.txt
+recursive-exclude moneyplex *.pyc
