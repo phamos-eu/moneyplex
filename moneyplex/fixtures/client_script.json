@@ -1,0 +1,15 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Payment Request",
+  "enabled": 1,
+  "modified": "2023-08-31 11:31:59.571296",
+  "name": "Payment Request-List",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.listview_settings['Payment Request'][\"onload\"] = function (listview){ \n    cur_list.page.add_button(\"Noneyplexexport gebuchter Eintr\u00e4ge\", () => {\n        frappe.call({\n            method: \"moneyplex.moneyplex.server_scripts.moneyplex_export\"\n        }).then( r => {\n            console.log(r)\n        })\n    })\n}",
+  "view": "List"
+ }
+]

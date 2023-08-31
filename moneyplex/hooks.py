@@ -203,5 +203,12 @@ fixtures = [
 				"Payment Request-party_bic"
             ]
         ]
+    ]},
+	{"dt": "Client Script", "filters": [
+        [
+            "name", "in", [
+                "Payment Request-List"
+            ]
+        ]
     ]}
 ]
