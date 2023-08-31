@@ -188,3 +188,20 @@ user_data_fields = [
 #	"moneyplex.auth.validate"
 # ]
 
+fixtures = [
+    {"dt": "Custom Field", "filters": [
+        [
+            "name", "in", [
+                "Payment Request-moneyplex_section",
+				"Payment Request-valuta",
+				"Payment Request-company",
+				"Payment Request-für_moneyplex_exportiert",
+				"Payment Request-supplier_name",
+				"Payment Request-moneypley_column_break",
+				"Payment Request-party_bank_account",
+				"Payment Request-party_iban",
+				"Payment Request-party_bic"
+            ]
+        ]
+    ]}
+]
