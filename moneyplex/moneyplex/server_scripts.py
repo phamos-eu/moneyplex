@@ -46,12 +46,13 @@ def moneyplex_export():
 
     payment_entries = []
     for name in names:
-        # set für_moneyplex_exportiert to 1
-        frappe.db.set_value("Payment Request", name, "für_moneyplex_exportiert", 1)
         # create payment entries
         doc = frappe.get_doc("Payment Request", name)
         pe = doc.create_payment_entry(submit=True)
         payment_entries.append(pe.name)
+        # set für_moneyplex_exportiert to 1
+        frappe.db.set_value("Payment Entry", pe.name, "für_moneyplex_exportiert", 1)
+        frappe.db.set_value("Payment Request", name, "für_moneyplex_exportiert", 1)
     
     if payment_entries:
         message = "Payment Entries generated: "

@@ -200,7 +200,9 @@ fixtures = [
 				"Payment Request-moneypley_column_break",
 				"Payment Request-party_bank_account",
 				"Payment Request-party_iban",
-				"Payment Request-party_bic"
+				"Payment Request-party_bic",
+				"Payment Entry-moneyplex_section",
+				"Payment Entry-für_moneyplex_exportiert"
             ]
         ]
     ]},
