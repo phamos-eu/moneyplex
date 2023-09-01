@@ -27,8 +27,14 @@ def moneyplex_export():
         `tabPayment Request`
     WHERE
         `tabPayment Request`.docstatus = 1 AND `tabPayment Request`.für_moneyplex_exportiert = 0
+    ORDER BY
+        `tabPayment Request`.creation
     """
     result = frappe.db.sql(query, as_dict=True)
+
+    if len(result) == 0:
+        frappe.msgprint("No records to exports.")
+        return ""
 
     # save the .xlsx file
     filename = "moneyplex_export.xlsx"
@@ -38,9 +44,20 @@ def moneyplex_export():
     df.drop("name", axis=1, inplace=True)
     df.to_excel(filepath, index=False)
 
-    # set für_moneyplex_exportiert to 1
+    payment_entries = []
     for name in names:
+        # set für_moneyplex_exportiert to 1
         frappe.db.set_value("Payment Request", name, "für_moneyplex_exportiert", 1)
+        # create payment entries
+        doc = frappe.get_doc("Payment Request", name)
+        pe = doc.create_payment_entry(submit=True)
+        payment_entries.append(pe.name)
+    
+    if payment_entries:
+        message = "Payment Entries generated: "
+        for pe in payment_entries:
+            message += "<a href=/app/payment-entry/{} target='_blank'>{}</a>, ".format(pe, pe)
+        frappe.msgprint(message)
 
     files = frappe.db.get_list("File", filters={"file_url": "/private/files/{}".format(filename)})
     if len(files) == 0:
