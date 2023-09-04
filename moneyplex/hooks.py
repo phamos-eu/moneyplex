@@ -214,3 +214,7 @@ fixtures = [
         ]
     ]}
 ]
+
+override_doctype_class = {
+	"Payment Request": "moneyplex.moneyplex.server_scripts.CustomPaymentRequest"
+}

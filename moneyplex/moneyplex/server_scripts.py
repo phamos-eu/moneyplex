@@ -75,3 +75,35 @@ def moneyplex_export():
     full_file_url = "{}/private/files/{}".format(full_file_url, filename)
 
     return full_file_url
+
+
+from erpnext.accounts.doctype.payment_request.payment_request import PaymentRequest
+
+class CustomPaymentRequest(PaymentRequest):
+    def on_submit(self):
+        """
+        this is a copy of the on_submit function from the Payment Request
+        with the difference that this function avoids the sending of emails
+        """
+        
+        if self.payment_request_type == "Outward":
+            self.db_set("status", "Initiated")
+            return
+        elif self.payment_request_type == "Inward":
+            self.db_set("status", "Requested")
+
+        send_mail = False # force the avoidance of the email to be sent
+        ref_self = frappe.get_self(self.reference_selftype, self.reference_name)
+
+        if (
+            hasattr(ref_self, "order_type") and getattr(ref_self, "order_type") == "Shopping Cart"
+        ) or self.flags.mute_email:
+            send_mail = False
+
+        if send_mail and self.payment_channel != "Phone":
+            self.set_payment_request_url()
+            self.send_email()
+            self.make_communication_entry()
+
+        elif self.payment_channel == "Phone":
+            self.request_phone_payment()
