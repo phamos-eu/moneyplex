@@ -12,8 +12,8 @@ def moneyplex_export():
     --    ursprüngliche Variante:
     --    `tabPayment Request`.transaction_date AS "Datum",
     --    `tabPayment Request`.valuta AS "Valuta",
-        TO_CHAR(`tabPayment Request`.transaction_date, 'DD.MM.YYYY') AS "Datum",
-        TO_CHAR(`tabPayment Request`.valuta, 'DD.MM.YYYY') AS "Valuta",
+        DATE_FORMAT(`tabPayment Request`.transaction_date, '%d.%m.%Y') AS "Datum",
+        DATE_FORMAT(`tabPayment Request`.valuta, '%d.%m.%Y') AS "Valuta",
         `tabPayment Request`.supplier_name AS "Name",
         `tabPayment Request`.party_iban AS "Iban",
         `tabPayment Request`.party_bic AS "Bic",
