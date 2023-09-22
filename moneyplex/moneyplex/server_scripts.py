@@ -39,7 +39,7 @@ def moneyplex_export():
     # save the .xlsx file
     filename = "moneyplex_export.xlsx"
     filepath = "{}/private/files/{}".format(frappe.utils.get_site_path(), filename)
-    df = pandas.DataFrame.from_records(result, index=['1', '2'])
+    df = pandas.DataFrame.from_records(result)
     names = list(df["name"])
     df.drop("name", axis=1, inplace=True)
     df.to_excel(filepath, index=False)
